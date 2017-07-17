@@ -21,7 +21,7 @@ function setupInput() {
         document.addEventListener('keydown', keyPressed);
         document.addEventListener('keyup', keyReleased);
 
-        blueCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
+        blueWarrior.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
 
 } // end function updatesetupInputMousePos -------------------------------------
 
@@ -33,25 +33,25 @@ function updateMousePos(evt) {
     mouseY = evt.clientY - rect.top  - root.scrollTop;
 
     //                                   temporary cheat ||||||||||||||
-    // carX = mouseX;
-    // carY = mouseY;
-    // carSpeedX = 4;
-    // carSpeedY = -4;
+    // warriorX = mouseX;
+    // warriorY = mouseY;
+    // warriorSpeedX = 4;
+    // warriorSpeedY = -4;
 
 } // end function updateMousePos -----------------------------------------------
 
-function keySet(keyEvent, whichCar, setTo) {
-    if(keyEvent.keyCode == whichCar.controlKeyLeft) { // turn left
-        whichCar.keyHeld_TurnLeft = setTo;
+function keySet(keyEvent, whichWarrior, setTo) {
+    if(keyEvent.keyCode == whichWarrior.controlKeyLeft) { // turn left
+        whichWarrior.keyHeld_TurnLeft = setTo;
     }
-    if(keyEvent.keyCode == whichCar.controlKeyRight) { // turn right
-        whichCar.keyHeld_TurnRight = setTo;
+    if(keyEvent.keyCode == whichWarrior.controlKeyRight) { // turn right
+        whichWarrior.keyHeld_TurnRight = setTo;
     }
-    if(keyEvent.keyCode == whichCar.controlKeyUp) { // speed up
-        whichCar.keyHeld_Gas = setTo;
+    if(keyEvent.keyCode == whichWarrior.controlKeyUp) { // speed up
+        whichWarrior.keyHeld_Gas = setTo;
     }
-    if(keyEvent.keyCode == whichCar.controlKeyDown) { // slow down or reverse
-        whichCar.keyHeld_Reverse = setTo;
+    if(keyEvent.keyCode == whichWarrior.controlKeyDown) { // slow down or reverse
+        whichWarrior.keyHeld_Reverse = setTo;
     }
 
 } // end function keySet -------------------------------------------------------
@@ -59,7 +59,7 @@ function keySet(keyEvent, whichCar, setTo) {
 function keyPressed(evt) {
     // console.log("Key pressed: " + evt.keyCode);
 
-    keySet(evt, blueCar, true);
+    keySet(evt, blueWarrior, true);
 
     // prevents arrow keys from scrolling screen
     evt.preventDefault();
@@ -69,5 +69,5 @@ function keyPressed(evt) {
 function keyReleased(evt) {
     // console.log("Key released: " + evt.keyCode);
 
-    keySet(evt, blueCar, false);
+    keySet(evt, blueWarrior, false);
 } // end function keyReleased --------------------------------------------------

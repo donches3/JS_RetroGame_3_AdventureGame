@@ -1,7 +1,7 @@
 
 var canvas, canvasContext;
 
-var blueCar  = new carClass();
+var blueWarrior  = new warriorClass();
 // end vars --------------------------------------------------------------------
 
 window.onload = function() {
@@ -27,8 +27,8 @@ function imageLoadingDoneSoStartGame() {
 } // end function imageLoadingDoneSoStartGame ----------------------------------
 
 function loadLevel(whichLevel) {
-    trackGrid = whichLevel.slice(); // copies all values in whichLevel into trackGrid
-    blueCar.reset(car1Pic, "Blue Steel");
+    worldGrid = whichLevel.slice(); // copies all values in whichLevel into worldGrid
+    blueWarrior.reset(warrior1Pic, "Blue Steel");
 } // end function loadLevel ----------------------------------------------------
 
 function updateAll() {
@@ -37,10 +37,10 @@ function updateAll() {
 } // end function updateAll ----------------------------------------------------
 
 function moveAll() {
-    blueCar.move();
+    blueWarrior.move();
 } // end function moveAll ------------------------------------------------------
 
 function drawAll() {
-    drawTracks();
-    blueCar.draw();
+    drawWorld();
+    blueWarrior.draw();
 } // end function drawAll ------------------------------------------------------
