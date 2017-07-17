@@ -6,10 +6,10 @@ const KEY_DOWN_ARROW  = 40;
 const KEY_LEFT_ARROW  = 37;
 
 // WASD key codes
-const KEY_W = 87; // up
-const KEY_D = 68; // right
-const KEY_S = 83; // down
-const KEY_A = 65; // left
+// const KEY_W = 87; // up
+// const KEY_D = 68; // right
+// const KEY_S = 83; // down
+// const KEY_A = 65; // left
 
 var mouseX = 0;
 var mouseY = 0;
@@ -21,8 +21,7 @@ function setupInput() {
         document.addEventListener('keydown', keyPressed);
         document.addEventListener('keyup', keyReleased);
 
-        blueCar.setupInput( KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
-        greenCar.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
+        blueCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
 
 } // end function updatesetupInputMousePos -------------------------------------
 
@@ -61,7 +60,6 @@ function keyPressed(evt) {
     // console.log("Key pressed: " + evt.keyCode);
 
     keySet(evt, blueCar, true);
-    keySet(evt, greenCar, true);
 
     // prevents arrow keys from scrolling screen
     evt.preventDefault();
@@ -72,5 +70,4 @@ function keyReleased(evt) {
     // console.log("Key released: " + evt.keyCode);
 
     keySet(evt, blueCar, false);
-    keySet(evt, greenCar, false);
 } // end function keyReleased --------------------------------------------------

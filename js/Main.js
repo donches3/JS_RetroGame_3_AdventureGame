@@ -2,7 +2,6 @@
 var canvas, canvasContext;
 
 var blueCar  = new carClass();
-var greenCar = new carClass();
 // end vars --------------------------------------------------------------------
 
 window.onload = function() {
@@ -30,7 +29,6 @@ function imageLoadingDoneSoStartGame() {
 function loadLevel(whichLevel) {
     trackGrid = whichLevel.slice(); // copies all values in whichLevel into trackGrid
     blueCar.reset(car1Pic, "Blue Steel");
-    greenCar.reset(car2Pic, "Green Granite");
 } // end function loadLevel ----------------------------------------------------
 
 function updateAll() {
@@ -40,11 +38,9 @@ function updateAll() {
 
 function moveAll() {
     blueCar.move();
-    greenCar.move();
 } // end function moveAll ------------------------------------------------------
 
 function drawAll() {
     drawTracks();
     blueCar.draw();
-    greenCar.draw();
 } // end function drawAll ------------------------------------------------------
