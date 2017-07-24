@@ -60,11 +60,9 @@ function warriorWorldHandling(whichWarrior) {
 
             // these two lines prevent burrowing bug by
             // reverse incrementing warrior position
-            // before changing speed
-            whichWarrior.x -= Math.cos(whichWarrior.ang) * whichWarrior.speed;
-            whichWarrior.y -= Math.sin(whichWarrior.ang) * whichWarrior.speed;
-
-            whichWarrior.speed *= -0.5; // bounce back at half speed
+            // This stops all motion
+            whichWarrior.x -= whichWarrior.incrementX;
+            whichWarrior.y -= whichWarrior.incrementY;
 
         } // end else if not road
     } // end if within world field

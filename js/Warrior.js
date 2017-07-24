@@ -1,24 +1,19 @@
 
-
-const SPEED_DECAY_MULT = 0.94;
-const DRIVE_POWER = 0.5;
-const REVERSE_POWER = 0.2;
-const TURN_RATE = 0.06;
-const MIN_SPEED_TO_TURN = 0.5;
+const WALK_SPEED = 3;
 
 function warriorClass() { // begin warriorClass ========================================
 
     this.x = 75;
     this.y = 75;
-    this.ang = 0;
-    this.speed = 0;
+    this.incrementX = 0;
+    this.incrementY = 0;
     this.myWarriorPic; // which picture to use
     this.name = "Untitled Warrior";
 
-    this.keyHeld_TurnLeft  = false;
-    this.keyHeld_TurnRight = false;
-    this.keyHeld_Gas       = false;
-    this.keyHeld_Reverse   = false;
+    this.keyHeld_MoveWest   = false;
+    this.keyHeld_MoveEast   = false;
+    this.keyHeld_MoveNorth  = false;
+    this.keyHeld_MoveSouth  = false;
 
     this.controlKeyUp;
     this.controlKeyRight;
@@ -35,17 +30,18 @@ function warriorClass() { // begin warriorClass ================================
     this.reset = function(whichImage, warriorName) {
         this.name = warriorName;
         this.myWarriorPic = whichImage;
-        this.speed = 0;
 
+        // cycle thru each row and column ...
         for(var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
             for(var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
                 var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+                // ... to find first available player start position
                 if(worldGrid[arrayIndex] == WORLD_PLAYERSTART) {
-                    worldGrid[arrayIndex] = WORLD_ROAD;
-                    this.ang = -Math.PI/2;
+                    worldGrid[arrayIndex] = WORLD_ROAD;  // replace with road tile
+                    // place player here
                     this.x = eachCol * WORLD_W + WORLD_W/2;
                     this.y = eachRow * WORLD_H + WORLD_H/2;
-                    return;
+                    return; // prevents destruction of other player start positions
                 } // end if playerstart
             } // end for eachCol
         } // end for eachRow
@@ -54,34 +50,33 @@ function warriorClass() { // begin warriorClass ================================
 
     this.move = function() {
 
-        this.speed *= SPEED_DECAY_MULT;
+        this.incrementX = 0;
+        this.incrementY = 0;
 
-        if(this.keyHeld_Gas) {
-            this.speed += DRIVE_POWER;
+        if(this.keyHeld_MoveNorth) {
+            this.incrementY -= WALK_SPEED;
         }
-        if(this.keyHeld_Reverse) {
-            this.speed -= REVERSE_POWER;
+        if(this.keyHeld_MoveSouth) {
+            this.incrementY += WALK_SPEED;
         }
 
-        if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) { // only turn while moving
-            if(this.keyHeld_TurnLeft) {
-                this.ang -= TURN_RATE;
-            }
-            if(this.keyHeld_TurnRight) {
-                this.ang += TURN_RATE;
-            }
+        if(this.keyHeld_MoveEast) {
+            this.incrementX += WALK_SPEED;
+        }
+        if(this.keyHeld_MoveWest) {
+            this.incrementX -= WALK_SPEED;
         }
 
         // increment warrior position
-        this.x += Math.cos(this.ang) * this.speed;
-        this.y += Math.sin(this.ang) * this.speed;
+        this.x += this.incrementX;
+        this.y += this.incrementY;
 
         warriorWorldHandling(this);
 
     } // end this function move ------------------------------------------------
 
     this.draw = function() {
-        drawBitmapCenteredWithRotation(this.myWarriorPic, this.x, this.y, this.ang);
+        drawBitmapCentered(this.myWarriorPic, this.x, this.y);
     } // end this function draw ------------------------------------------------
 
 } // end function warriorClass =====================================================
