@@ -10,7 +10,7 @@ var levelOne  = [4,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
                  4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
                  1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,
                  1,0,0,0,1,1,1,4,4,4,4,1,1,1,1,1,1,0,0,1,
-                 1,0,0,1,1,0,0,1,4,4,4,1,0,0,0,0,1,0,0,1,
+                 1,0,0,1,1,0,0,1,6,6,6,1,0,0,0,0,1,0,0,1,
                  1,0,0,1,0,0,0,0,1,4,1,0,0,0,0,0,1,0,0,1,
                  1,0,0,1,0,0,0,0,0,1,1,0,0,5,0,0,1,0,0,1,
                  1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1,
@@ -23,12 +23,13 @@ var levelOne  = [4,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
 
 var worldGrid = [];
 
-const WORLD_ROAD = 0;
+const WORLD_FLOOR = 0;
 const WORLD_WALL = 1;
 const WORLD_PLAYERSTART = 2;
 const WORLD_GOAL = 3;
-const WORLD_TREE = 4;
-const WORLD_FLAG = 5;
+const WORLD_KEY = 4;
+const WORLD_DOOR = 5;
+const WORLD_CUP  = 6;
 // end vars --------------------------------------------------------------------
 
 function returnTileTypeAtColRow(col, row) {
@@ -56,7 +57,7 @@ function warriorWorldHandling(whichWarrior) {
         if (tileHere == WORLD_GOAL) { // goal here
             console.log(whichWarrior.name + " WINS!")
             loadLevel(levelOne);
-        } else if (tileHere != WORLD_ROAD) { // obstacle here
+        } else if (tileHere != WORLD_FLOOR) { // obstacle here
 
             // these two lines prevent burrowing bug by
             // reverse incrementing warrior position
@@ -64,7 +65,7 @@ function warriorWorldHandling(whichWarrior) {
             whichWarrior.x -= whichWarrior.incrementX;
             whichWarrior.y -= whichWarrior.incrementY;
 
-        } // end else if not road
+        } // end else if not floor
     } // end if within world field
 } // end function warriorWorldHandling ---------------------------------------------
 

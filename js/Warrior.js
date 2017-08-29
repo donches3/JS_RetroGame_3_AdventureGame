@@ -37,7 +37,7 @@ function warriorClass() { // begin warriorClass ================================
                 var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
                 // ... to find first available player start position
                 if(worldGrid[arrayIndex] == WORLD_PLAYERSTART) {
-                    worldGrid[arrayIndex] = WORLD_ROAD;  // replace with road tile
+                    worldGrid[arrayIndex] = WORLD_FLOOR;  // replace with floor tile
                     // place player here
                     this.x = eachCol * WORLD_W + WORLD_W/2;
                     this.y = eachRow * WORLD_H + WORLD_H/2;
