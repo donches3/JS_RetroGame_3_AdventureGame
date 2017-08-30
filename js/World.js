@@ -14,7 +14,7 @@ var levelOne  = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                  1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,
                  1,0,1,1,1,1,1,1,1,1,1,0,4,0,1,1,
                  1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,1,
-                 1,0,5,0,5,0,5,0,6,0,1,1,1,1,1,1,
+                 1,0,5,0,5,0,5,0,3,0,1,1,1,1,1,1,
                  1,0,1,0,1,0,1,0,0,0,1,1,1,1,1,1,
                  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
@@ -26,7 +26,6 @@ const WORLD_PLAYERSTART = 2;
 const WORLD_GOAL = 3;
 const WORLD_KEY = 4;
 const WORLD_DOOR = 5;
-const WORLD_CUP  = 6;
 // end vars --------------------------------------------------------------------
 
 function returnTileTypeAtColRow(col, row) {
@@ -71,11 +70,11 @@ function rowColToArrayIndex(col, row) {
 } // end function rowColToArrayIndex -------------------------------------------
 
 function tileKindHasTransparency(checkTileKind) {
-    // true if tile is key, door or cup
+    // true if tile is key, door or goal
     return (
         checkTileKind == WORLD_KEY  ||
         checkTileKind == WORLD_DOOR ||
-        checkTileKind == WORLD_CUP
+        checkTileKind == WORLD_GOAL
     );
 } // end function tileKindHasTransparency --------------------------------------
 

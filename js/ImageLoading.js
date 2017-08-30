@@ -30,7 +30,6 @@ function loadImages() {
         {worldType: WORLD_GOAL,     theFile: "world_goal.png"},
         {worldType: WORLD_KEY,      theFile: "world_key.png"},
         {worldType: WORLD_DOOR,     theFile: "world_door.png"},
-        {worldType: WORLD_CUP,      theFile: "world_cup.png"}
         ];
 
     picsToLoad = imageList.length;
