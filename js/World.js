@@ -67,11 +67,20 @@ function warriorWorldHandling(whichWarrior) {
 
         } // end else if not floor
     } // end if within world field
-} // end function warriorWorldHandling ---------------------------------------------
+} // end function warriorWorldHandling -----------------------------------------
 
 function rowColToArrayIndex(col, row) {
     return (row * WORLD_COLS) + col;
 } // end function rowColToArrayIndex -------------------------------------------
+
+function tileKindHasTransparency(checkTileKind) {
+    // true if tile is key, door or cup
+    return (
+        checkTileKind == WORLD_KEY  ||
+        checkTileKind == WORLD_DOOR ||
+        checkTileKind == WORLD_CUP
+    );
+} // end function tileKindHasTransparency --------------------------------------
 
 function drawWorld() {
 
@@ -82,14 +91,20 @@ function drawWorld() {
     for(var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
         for(var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
             var tileKindHere = worldGrid[arrayIndex];
-            var useImg = worldPics[tileKindHere];
-            canvasContext.drawImage(useImg, drawTileX, drawTileY);
 
-            drawTileX += WORLD_W;
+            if ( tileKindHasTransparency(tileKindHere) ){
+                // draw floor first
+                canvasContext.drawImage(worldPics[WORLD_FLOOR], drawTileX, drawTileY);
+            }
+
+            // draw current tile
+            canvasContext.drawImage(worldPics[tileKindHere], drawTileX, drawTileY);
+
+            drawTileX += WORLD_W; // increment by pixels per tile
             arrayIndex++;
         } // end for eachCol
         drawTileX = 0; // carriage return
-        drawTileY += WORLD_H; // to next row
+        drawTileY += WORLD_H; // to next row (by pixels per tile)
     } // end for eachRow
 
 } // end function drawWorld ---------------------------------------------------
