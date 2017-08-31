@@ -9,6 +9,7 @@ function warriorClass() { // begin warriorClass ================================
     this.incrementY = 0;
     this.myWarriorPic; // which picture to use
     this.name = "Untitled Warrior";
+    this.keysHeld = 0; // door keys, not keyboard keys
 
     this.keyHeld_MoveWest   = false;
     this.keyHeld_MoveEast   = false;
@@ -39,8 +40,8 @@ function warriorClass() { // begin warriorClass ================================
                 if(worldGrid[arrayIndex] == WORLD_PLAYERSTART) {
                     worldGrid[arrayIndex] = WORLD_FLOOR;  // replace with floor tile
                     // place player here
-                    this.x = eachCol * WORLD_W + WORLD_W/2;
-                    this.y = eachRow * WORLD_H + WORLD_H/2;
+                    this.x = eachCol * TILE_WIDTH + TILE_WIDTH/2;
+                    this.y = eachRow * TILE_HEIGHT + TILE_HEIGHT/2;
                     return; // prevents destruction of other player start positions
                 } // end if playerstart
             } // end for eachCol

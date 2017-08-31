@@ -1,7 +1,6 @@
 
-const WORLD_W = 50;
-const WORLD_H = 50;
-const WORLD_GAP = 2;
+const TILE_WIDTH = 50;
+const TILE_HEIGHT = 50;
 const WORLD_COLS = 16;
 const WORLD_ROWS = 12;
 
@@ -37,11 +36,11 @@ function returnTileTypeAtColRow(col, row) {
         } else { // outside world field, so no world
             return WORLD_WALL;
         } // end if else
-} // end function isObstacleAtColRow -----------------------------------------------
+} // end function returnTileTypeAtColRow ---------------------------------------
 
 function warriorWorldHandling(whichWarrior) {
-    var warriorWorldCol = Math.floor(whichWarrior.x / WORLD_W);
-    var warriorWorldRow = Math.floor(whichWarrior.y / WORLD_H);
+    var warriorWorldCol = Math.floor(whichWarrior.x / TILE_WIDTH);
+    var warriorWorldRow = Math.floor(whichWarrior.y / TILE_HEIGHT);
     var worldIndexUnderWarrior = rowColToArrayIndex(warriorWorldCol, warriorWorldRow);
 
     // if warrior is within world field ...
@@ -50,18 +49,39 @@ function warriorWorldHandling(whichWarrior) {
 
         var tileHere = returnTileTypeAtColRow(warriorWorldCol, warriorWorldRow)
 
-        if (tileHere == WORLD_GOAL) { // goal here
-            console.log(whichWarrior.name + " WINS!")
-            loadLevel(levelOne);
-        } else if (tileHere != WORLD_FLOOR) { // obstacle here
+        switch (tileHere) {
+            case WORLD_FLOOR:
+                // nothing goes here, unimpeded movement is handled elsewhere.
+                break; // end case floor
+            case WORLD_WALL:
+                // stops player motion
+                whichWarrior.x -= whichWarrior.incrementX; // these two lines prevent burrowing bug by
+                whichWarrior.y -= whichWarrior.incrementY; // reverse incrementing warrior position
+                break; // end case wall
+            case WORLD_GOAL:
+                console.log(whichWarrior.name + " WINS!")
+                loadLevel(levelOne);
+                break; // end case goal
+            case WORLD_KEY:
+                whichWarrior.keysHeld++; // add key to inventory
+                worldGrid[worldIndexUnderWarrior] = WORLD_FLOOR; // replace key tile with floor tile
+                break; // end case key
+            case WORLD_DOOR:
+                // check keys
+                if (whichWarrior.keysHeld > 0) {
+                    whichWarrior.keysHeld--; // remove key from inventory
+                    worldGrid[worldIndexUnderWarrior] = WORLD_FLOOR; // replace door tile with floor tile
+                } else { // nope, door is obstacle
+                    // stops player motion
+                    whichWarrior.x -= whichWarrior.incrementX; // these two lines prevent burrowing bug by
+                    whichWarrior.y -= whichWarrior.incrementY; // reverse incrementing warrior position
+                } // end else
+                break; // end case door
+            default:
+                // nothing goes here, unimpeded movement is handled elsewhere.
+                break;
+        } // end switch
 
-            // these two lines prevent burrowing bug by
-            // reverse incrementing warrior position
-            // This stops all motion
-            whichWarrior.x -= whichWarrior.incrementX;
-            whichWarrior.y -= whichWarrior.incrementY;
-
-        } // end else if not floor
     } // end if within world field
 } // end function warriorWorldHandling -----------------------------------------
 
@@ -96,11 +116,11 @@ function drawWorld() {
             // draw current tile
             canvasContext.drawImage(worldPics[tileKindHere], drawTileX, drawTileY);
 
-            drawTileX += WORLD_W; // increment by pixels per tile
+            drawTileX += TILE_WIDTH; // to next tile in row
             arrayIndex++;
         } // end for eachCol
         drawTileX = 0; // carriage return
-        drawTileY += WORLD_H; // to next row (by pixels per tile)
+        drawTileY += TILE_HEIGHT; // to next row
     } // end for eachRow
 
 } // end function drawWorld ---------------------------------------------------
