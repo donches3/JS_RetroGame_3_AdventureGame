@@ -43,4 +43,5 @@ function moveAll() {
 function drawAll() {
     drawWorld();
     blueWarrior.draw();
+    drawGUI();
 } // end function drawAll ------------------------------------------------------
